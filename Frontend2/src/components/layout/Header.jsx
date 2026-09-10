@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import Icon from '../common/Icon.jsx'
 import { useAuth, ROLE } from '../../context/AuthContext.jsx'
 import { useToast } from '../../context/ToastContext.jsx'
@@ -34,11 +35,12 @@ export default function Header() {
   }
 
   return (
-    <header className="bg-white border-b-2 border-navy shadow-sm">
-      <div className="max-w-[1720px] mx-auto px-4 py-3 flex flex-col md:flex-row items-center justify-between gap-4">
+    <header className="site-header relative overflow-hidden bg-white border-b-2 border-navy shadow-sm">
+      <div className="header-sheen absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-saffron/10 to-transparent pointer-events-none" />
+      <div className="relative max-w-[1720px] mx-auto px-4 py-3 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
         {/* Left branding: PRAMAAN mark + title (CPCL kept minimal, below tagline) */}
         <div className="flex items-center gap-3">
-          <PramaanLogo />
+          <motion.div initial={{ opacity: 0, scale: .8, rotate: -8 }} animate={{ opacity: 1, scale: 1, rotate: 0 }} transition={{ type: 'spring', stiffness: 260, damping: 18 }}><PramaanLogo /></motion.div>
           <div className="flex flex-col">
             <div className="flex items-center gap-2">
               <h1 className="text-[20px] font-extrabold text-navy tracking-tight leading-tight">PRAMAAN</h1>
