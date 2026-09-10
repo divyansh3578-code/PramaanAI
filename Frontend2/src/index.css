@@ -85,6 +85,56 @@
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
+@keyframes scan-line {
+  0% { transform: translateY(-10px); opacity: 0; }
+  15%, 80% { opacity: .9; }
+  100% { transform: translateY(420px); opacity: 0; }
+}
+
+@keyframes node-breathe {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(8, 94, 104, 0); }
+  50% { box-shadow: 0 0 0 6px rgba(8, 94, 104, .12), 0 0 22px rgba(8, 94, 104, .2); }
+}
+
+.hero-grid {
+  background-image: linear-gradient(rgba(255,255,255,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.07) 1px, transparent 1px);
+  background-size: 34px 34px;
+  mask-image: linear-gradient(to bottom, black, transparent 90%);
+}
+
+.hero-scan { animation: scan-line 5s ease-in-out infinite; }
+
+.command-orbit { box-shadow: inset 0 0 40px rgba(255,153,51,.05), 0 18px 40px rgba(0,0,0,.12); }
+
+.eyebrow { color: #085e68; font: 700 10px/1.2 'JetBrains Mono', monospace; letter-spacing: .16em; }
+.status-live { display: inline-flex; align-items: center; gap: .4rem; color: #047857; font: 600 10px/1.2 'JetBrains Mono', monospace; }
+.status-live span { width: 6px; height: 6px; border-radius: 999px; background: #10b981; box-shadow: 0 0 0 4px rgba(16,185,129,.12); animation: pulse 2s infinite; }
+.pipeline-track { position: relative; }
+.pipeline-step { position: relative; min-width: 0; }
+.pipeline-node { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border: 1px solid #cbd5e1; border-radius: 999px; color: #64748b; background: #fff; position: relative; z-index: 1; }
+.pipeline-step:not(:last-child)::after { content: ''; position: absolute; left: 36px; right: -12px; top: 18px; height: 1px; background: linear-gradient(90deg, #10b981, #cbd5e1); }
+.pipeline-node.is-complete { color: #047857; border-color: #6ee7b7; background: #ecfdf5; }
+.pipeline-node.is-active { color: #085e68; border-color: #5eead4; background: #f0fdfa; animation: node-breathe 2s infinite; }
+.activity-icon { display: grid; place-items: center; width: 26px; height: 26px; flex: 0 0 auto; border-radius: 8px; color: #047857; background: #ecfdf5; }
+.activity-icon.is-warning { color: #b45309; background: #fffbeb; }
+.magnetic-button { will-change: transform; }
+
+@media (max-width: 640px) {
+  .pipeline-step:not(:last-child)::after { display: none; }
+  .pipeline-node { width: 32px; height: 32px; }
+  body { font-size: 12px; }
+  .site-header h1 { font-size: 18px; }
+}
+
+@media (max-width: 420px) {
+  .pipeline-track { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .command-hero h2 { font-size: 2rem; line-height: 1.05; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-scan, .status-live span, .pipeline-node.is-active { animation: none; }
+}
+
 @media (max-width: 640px) {
   body { font-size: 12px; }
   .site-header h1 { font-size: 18px; }
