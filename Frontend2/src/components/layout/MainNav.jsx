@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom'
 import Icon from '../common/Icon.jsx'
 import { NAV_ITEMS } from '../../data/constants.js'
 import { useAuth } from '../../context/AuthContext.jsx'
+import { motion } from 'framer-motion'
 
 export default function MainNav() {
   const { user } = useAuth()
@@ -17,13 +18,12 @@ export default function MainNav() {
               to={item.to}
               end={item.to === '/'}
               className={({ isActive }) =>
-                `px-3 py-2.5 flex items-center gap-1 border-r border-navy-600 whitespace-nowrap ${
-                  isActive ? 'bg-saffron text-navy font-bold' : 'hover:bg-navy-700 text-navy-100'
+                `relative px-3 py-2.5 flex items-center gap-1 border-r border-navy-600 whitespace-nowrap ${
+                  isActive ? 'text-saffron font-bold' : 'hover:bg-navy-700 text-navy-100'
                 }`
               }
             >
-              <Icon name={item.icon} size={15} />
-              {item.label}
+              {({ isActive }) => <><Icon name={item.icon} size={15} />{item.label}{isActive && <motion.span layoutId="active-nav" className="absolute left-2 right-2 bottom-0 h-0.5 bg-saffron" transition={{ type: 'spring', stiffness: 500, damping: 35 }} />}</>}
             </NavLink>
           ))}
         </div>
